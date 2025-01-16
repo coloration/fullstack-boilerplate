@@ -4,13 +4,35 @@ services:
     container_name: db-service
     restart: always
     ports:
-      - "9756:3306"
+      - 9756:3306
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
       MYSQL_ROOT_PASSWORD: color123
       MYSQL_DATABASE: hono_db
     volumes:
       - data_mysql:/var/lib/mysql
+    networks:
+      - demo-network
+  hono-service:
+    build: ./server
+    container_name: hono-service
+    restart: unless-stopped
+    ports:
+      - 9750:9750
+    environment:
+      DATABASE_HOSTNAME: db-service
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: color123
+      DATABASE_NAME: hono_db
+    depends_on:
+      - db-service
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    driver: bridge
 
 volumes:
   data_mysql:
