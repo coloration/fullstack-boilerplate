@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { RouterLink } from 'vue-router'
 import { demoCreate, demoDelete, demoList, demoModify } from '~/api/demo'
 
 defineOptions({ name: 'Overview' })
@@ -34,27 +35,9 @@ onMounted(() => {
 <template>
   <div class="overview">
     <!-- -->
-    {{ demos }}
-    <a-list>
-      <template #header>
-        Demo <a-button type="primary" @click="handleCreate">
-          创建
-        </a-button>
-      </template>
-      <a-list-item v-for="demo in demos" :key="demo.id">
-        <div clas="flex gap-4">
-          <span>{{ demo.id }}</span>
-          /
-          <a-input v-model="demo.name" :style="{ width: '320px' }" />
-          <a-button status="danger" @click="handleDelete(demo.id)">
-            删除
-          </a-button>
-          <a-button @click="handleModify(demo.id, demo.name)">
-            修改
-          </a-button>
-        </div>
-      </a-list-item>
-    </a-list>
+    <RouterLink to="/demo">
+      <a-button>GO Demo</a-button>
+    </RouterLink>
   </div>
 </template>
 
