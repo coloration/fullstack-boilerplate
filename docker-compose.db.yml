@@ -1,16 +1,23 @@
 services:
-  db-service:
+  db-mysql:
     image: mysql:8.0
-    container_name: db-service
+    container_name: db-mysql
     restart: always
     ports:
-      - "9756:3306"
+      - 9756:3306
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
       MYSQL_ROOT_PASSWORD: color123
       MYSQL_DATABASE: hono_db
     volumes:
       - data_mysql:/var/lib/mysql
-
+  db-redis:
+    image: redis:alpine
+    container_name: db-redis
+    ports:
+      - 9779:6379
+    volumes:
+      - data_redis:/data
 volumes:
   data_mysql:
+  data_redis:

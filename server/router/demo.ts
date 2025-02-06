@@ -1,6 +1,7 @@
 import type { Context } from 'hono'
 import { app } from '../core'
-import { db } from '../database'
+import { db } from '../database/mysql'
+import { redis } from '../database/redis'
 
 async function getDemo(c: Context) {
   const id = c.req.param('id')
@@ -50,4 +51,14 @@ app.put('/demos/:id', async (c) => {
     .update({ name: post.name }) // 更新内容
 
   return await getDemo(c)
+})
+
+
+app.get('/demo/redis-test', async (c) => {
+
+  await redis.set('test', 'hello world')
+
+  return c.json({
+    data: 'ok'
+  })
 })

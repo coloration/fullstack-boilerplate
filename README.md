@@ -1,6 +1,6 @@
 # fullstack development boilerplate
 
-项目基于 Vite(Vue), Bun(Hono), MySQL 实现
+项目基于 Vite(Vue), Bun(Hono), MySQL, Redis实现
 
 ## 部署
 
@@ -14,11 +14,12 @@ $ docker compose -f docker-compose.prod.yml up -d
 
 ``` bash
 $ docker-compose -f docker-compose.db.yml up -d
-$ bun --watch ./server/index.ts
-
-##
 $ cd server
+
+# first install
 server$ bun install
+
+server$ bun run dev
 ```
 
 ### front-end
